@@ -5,15 +5,17 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
+require('dotenv').config(); // For loading environment variables
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000; // Use PORT from environment variables
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Specify the views folder
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost/file_upload', {
+// MongoDB connection using environment variables
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/file_upload'; // Default to localhost if not set in environment
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => console.log("Connected to MongoDB"))
@@ -31,7 +33,7 @@ const User = mongoose.model('User', userSchema);
 
 // Session middleware
 app.use(session({
-  secret: 'secret',
+  secret: process.env.SESSION_SECRET || 'secret', // Use a secret from environment variables
   resave: false,
   saveUninitialized: true,
 }));
@@ -263,7 +265,6 @@ app.delete('/admin/delete-file/:username/:filename', isAdmin, (req, res) => {
     res.json({ message: 'File deleted successfully' });
   });
 });
-
 
 // Start the server
 app.listen(port, '0.0.0.0', () => {
