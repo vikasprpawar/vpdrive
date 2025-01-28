@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Manage Users and Files</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <h2>Manage Users and Files</h2>
+
+  <ul>
+    <% users.forEach(function(user) { %>
+      <li>
+        <h3><%= user.username %></h3>
+        <ul>
+          <% user.files.forEach(function(file) { %>
+            <li>
+              <%= file %> 
+              <!-- Link to delete file, uses JavaScript to send DELETE request -->
+              <button onclick="deleteFile('<%= user.username %>', '<%= file %>')">Delete</button>
+            </li>
+          <% }) %>
+        </ul>
+      </li>
+    <% }) %>
+  </ul>
+
+  <br><br>
+  <!-- Logout Link for Admin -->
+  <a href="/logout">Logout</a>
+
+  <script>
+    function deleteFile(username, filename) {
+      const confirmation = confirm('Are you sure you want to delete this file?');
+      if (confirmation) {
+        fetch(`/admin/delete-file/${username}/${filename}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert('File deleted successfully');
+          location.reload(); // Reload the page to update the list of files
+        })
+        .catch(error => {
+          console.error('Error deleting file:', error);
+          alert('Failed to delete the file');
+        });
+      }
+    }
+  </script>
+</body>
+</html>
