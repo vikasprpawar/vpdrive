@@ -6,19 +6,4 @@ services:
     buildCommand: yarn  # If it's a static site, leave this empty; otherwise specify
     startCommand: yarn start  # Specify the start command if it's a dynamic server
     staticPublishPath: public  # If using static hosting, set the directory for static files
-    routes:
-      - type: redirect
-        source: http://my-website.com
-        destination: https://my-website.com
-        statusCode: 301
-    envVars:
-      - key: SSL_CERTIFICATE
-        value: |
-          -----BEGIN CERTIFICATE-----
-          # Your certificate content here
-          -----END CERTIFICATE-----
-      - key: SSL_PRIVATE_KEY
-        value: |
-          -----BEGIN PRIVATE KEY-----
-          # Your private key content here
-          -----END PRIVATE KEY-----
+   
