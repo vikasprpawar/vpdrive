@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const app = express();
-const port = 5000;
+const port = 3000;
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
