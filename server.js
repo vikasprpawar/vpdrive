@@ -7,7 +7,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 require('dotenv').config(); // For loading environment variables
 const app = express();
-const port = process.env.PORT || 5000; // Use PORT from environment variables
+const port = process.env.PORT || 3000; // Use PORT from environment variables
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
