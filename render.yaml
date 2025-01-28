@@ -4,7 +4,7 @@ services:
     env: static  # Or use 'docker'/'node'/'python' depending on your project type
     region: oregon  # Choose a region (e.g., oregon, frankfurt)
     buildCommand: yarn  # If it's a static site, leave this empty; otherwise specify
-    startCommand: npm start  # Specify the start command if it's a dynamic server
+    startCommand: yarn start  # Specify the start command if it's a dynamic server
     staticPublishPath: public  # If using static hosting, set the directory for static files
     routes:
       - type: redirect
